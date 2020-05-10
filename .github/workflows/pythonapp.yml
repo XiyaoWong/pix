@@ -2,7 +2,7 @@ name: 'pix pic crawler'
 
 on:
   schedule:
-    - cron: '25 2,15 * * *'
+    - cron: '0 3,15 * * *'
   watch:
       types: started
 
@@ -28,7 +28,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m -a "add pics"
+          git commit -m "add pics"
       - name: 'Push'
         uses: ad-m/github-push-action@master
         with:
