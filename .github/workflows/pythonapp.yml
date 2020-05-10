@@ -2,7 +2,7 @@ name: 'pix pic crawler'
 
 on:
   schedule:
-    - cron: '8 3,15 * * *'
+    - cron: '53 3,15 * * *'
   watch:
       types: started
 
@@ -32,4 +32,4 @@ jobs:
       - name: 'Push'
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
