@@ -1,7 +1,6 @@
 import dl
 import json
 import os
-import sys
 import time
 
 import config
@@ -10,10 +9,7 @@ import parse
 try:
     parse.main()
     dl.main()
-except KeyboardInterrupt:
-    print("正在退出...")
-    sys.exit()
-finally:
+except Exception:
     pics = os.listdir(config.IMAGES_SAVE_DIR)
     data = {
         'pics': pics,
