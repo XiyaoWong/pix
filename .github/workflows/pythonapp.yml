@@ -28,8 +28,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "add pics" -a
-      - name: 'Push setus'
+          git commit -m -a "add pics"
+      - name: 'Push'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.TOKEN }}
