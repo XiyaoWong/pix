@@ -2,7 +2,7 @@ name: 'pix pic crawler'
 
 on:
   schedule:
-    - cron: '10 2,15 * * *'
+    - cron: '25 2,15 * * *'
   watch:
       types: started
 
