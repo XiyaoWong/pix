@@ -10,6 +10,8 @@ try:
     parse.main()
     dl.main()
 except Exception:
+    pass
+finally:
     pics = os.listdir(config.IMAGES_SAVE_DIR)
     data = {
         'pics': pics,
