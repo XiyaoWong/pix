@@ -1,0 +1,36 @@
+name: 'pix crawler'
+
+on:
+  schedule:
+    - cron: '0 10,22 * * *'
+  watch:
+      types: started
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set-up
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt
+          
+      - name: 'Work'
+        timeout-minutes: 400
+        run: python main.py
+        
+      - name: 'Commit'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "add pics" -a
+          
+      - name: 'Push'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
