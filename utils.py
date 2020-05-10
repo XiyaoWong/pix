@@ -85,17 +85,20 @@ def download(file_url, file_name=None, file_type=None, save_path="download", hea
         print(f'{file_name}已存在，不再下载！')
         return True
     print(f"Downloading {file_name}")
-    with requests.get(file_url, headers=headers, stream=True, timeout=timeout) as rep:
-        file_size = int(rep.headers['Content-Length'])
-        if rep.status_code != 200:
-            print("下载失败")
-            return False
-        label = '{:.2f}MB'.format(file_size / (1024 * 1024))
-        with click.progressbar(length=file_size, label=label) as progressbar:
-            with open(f"{save_path}/{file_name}", "wb") as f:
-                for chunk in rep.iter_content(chunk_size=1024):
-                    if chunk:
-                        f.write(chunk)
-                        progressbar.update(1024)
-        print("下载成功")
-        return True
+    try:
+        with requests.get(file_url, headers=headers, stream=True, timeout=timeout) as rep:
+            file_size = int(rep.headers['Content-Length'])
+            if rep.status_code != 200:
+                print("下载失败")
+                return False
+            label = '{:.2f}MB'.format(file_size / (1024 * 1024))
+            with click.progressbar(length=file_size, label=label) as progressbar:
+                with open(f"{save_path}/{file_name}", "wb") as f:
+                    for chunk in rep.iter_content(chunk_size=1024):
+                        if chunk:
+                            f.write(chunk)
+                            progressbar.update(1024)
+            print("下载成功")
+    except Exception:
+        remove_file(f"{save_path}/{file_name}")
+    return True
