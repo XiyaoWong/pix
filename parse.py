@@ -25,7 +25,7 @@ def parse(date):
     api = f"https://api.pixivic.com/ranks?page=1&date={date}&mode=day&pageSize=1000"
 
     rep = requests.get(api, headers=config.HEADERS, timeout=10)
-    data = rep.json().get('data')[:10]  # type: list
+    data = rep.json().get('data')  # type: list
     if not '获取排行成功' in rep.text or data is None or len(data) == 0:
         print(f'没获取到{date}这天的数据')
         return None
